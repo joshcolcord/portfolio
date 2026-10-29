@@ -1,0 +1,32 @@
+{
+  "_note": "Source of truth for works.html. After editing, run: node build.mjs",
+  "_fields": {
+    "type": "'project' or 'writing'",
+    "title": "required",
+    "description": "project only — one short sentence",
+    "github": "project only — absolute URL; omit or leave empty to hide the icon",
+    "article": "site-root-relative path to the writeup, e.g. 'writing/example.html'; empty hides the link",
+    "date": "writing only — ISO 'YYYY-MM-DD', rendered as 'Jan 14, 2025'"
+  },
+  "items": [
+    {
+      "type": "project",
+      "title": "Example Project",
+      "description": "A short description of what the project does and what it's built with.",
+      "github": "https://github.com/joshcolcord",
+      "article": "writing/example.html"
+    },
+    {
+      "type": "writing",
+      "title": "Example Writeup",
+      "date": "2025-01-14",
+      "article": "writing/example.html"
+    },
+    {
+      "type": "writing",
+      "title": "Untitled Draft",
+      "date": "2024-11-02",
+      "article": ""
+    }
+  ]
+}

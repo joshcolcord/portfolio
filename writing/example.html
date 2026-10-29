@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Writeup — joshua colcord</title>
+    <meta name="description" content="An example article page, showing how a writeup is laid out.">
+    <meta name="theme-color" content="#111111">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <main id="maincontent" class="article">
+        <header class="article-head">
+            <h1>Example Writeup</h1>
+            <p class="article-meta">Jan 14, 2025</p>
+        </header>
+
+        <p>This is a placeholder article, sitting alongside the site it belongs to. It exists so the
+        Works page has something real to point at while the actual writeups are being written — its
+        job is to show the typography and spacing a finished piece will land in, not to say anything.</p>
+
+        <p>Body text runs at the same measure and leading as the home page, so a writeup reads as part
+        of the same site rather than a separate artifact. Headings, lists, quotes and code all inherit
+        the same palette, which means there is one file to edit when the colours change.</p>
+
+        <h2>How these pages get made</h2>
+
+        <p>The list of works on <a href="../works.html">works.html</a> is generated from
+        <code>works.json</code>. Articles are written by hand; only the index is compiled. The build
+        step checks that every <code>article</code> path in the JSON actually resolves on disk, so a
+        typo shows up as a warning at build time rather than a 404 in the browser.</p>
+
+        <h2>What is here</h2>
+
+        <ul>
+            <li>Paragraphs, links and headings, at the site's normal rhythm.</li>
+            <li>An <a href="../index.html">home link</a>, so a reader can get back out.</li>
+            <li>A back link to the <a href="../works.html">works index</a>.</li>
+        </ul>
+
+        <blockquote>Placeholder prose should look like the real thing at a glance, or it hides layout
+        problems until the day you need it to not.</blockquote>
+
+        <pre><code>node build.mjs</code></pre>
+
+        <a class="back-link" href="../works.html">&larr; Works</a>
+    </main>
+</body>
+</html>
