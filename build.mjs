@@ -40,6 +40,20 @@ function formatDate(iso) {
     return `${MONTHS[Number(month) - 1] ?? month} ${Number(day)}, ${year}`;
 }
 
+/**
+ * Normalise an "article" value from works.json to a site-relative path.
+ *   "jcolcord.me/writing/foo"          -> "writing/foo"
+ *   "https://jcolcord.me/writing/foo"  -> "writing/foo"
+ *   "writing/foo"                      -> "writing/foo"
+ * Only a first segment that looks like a hostname (contains a dot) is stripped.
+ */
+const articlePath = (article) => String(article)
+    .replace(/^https?:\/\//, '')
+    .replace(/^[^/]*\.[^/]*\//, '');
+
+/** Public URL for an article: absolute path, so it resolves the same from any page. */
+const articleHref = (article) => '/' + articlePath(article);
+
 /* Same GitHub mark as index.html, so the icon reads identically across pages. */
 const ICON_GITHUB = '<svg class="icon-brand" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>';
 
@@ -58,7 +72,7 @@ const LINKEDIN_URL = 'https://www.linkedin.com/in/joshcolcord';
 
 function projectCard(item) {
     const title = esc(item.title);
-    const href = item.article ? esc(item.article) : '';
+    const href = item.article ? esc(articleHref(item.article)) : '';
     const heading = href
         ? `<a class="work-title" href="${href}">${title}</a>`
         : `<span class="work-title">${title}</span>`;
@@ -84,7 +98,7 @@ function projectCard(item) {
 function writingRow(item) {
     const title = esc(item.title);
     const heading = item.article
-        ? `<a class="write-title" href="${esc(item.article)}">${title}</a>`
+        ? `<a class="write-title" href="${esc(articleHref(item.article))}">${title}</a>`
         : `<span class="write-title">${title}</span>`;
 
     return `            <li class="write-item">
@@ -104,15 +118,15 @@ const html = `<!DOCTYPE html>
     <title>Projects &amp; Writing — joshua colcord</title>
     <meta name="description" content="Projects and writing by joshua colcord.">
     <meta name="theme-color" content="#111111">
-    <link rel="stylesheet" href="styles.css?v=${cssVersion}">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/styles.css?v=${cssVersion}">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <main id="maincontent" class="page">
         <header class="masthead">
             <h1>Joshua Colcord</h1>
             <div class="masthead-icons">
-                <a href="index.html" aria-label="Back to home" title="Home">${ICON_BACK}</a>
+                <a href="/" aria-label="Back to home" title="Home">${ICON_BACK}</a>
                 <a href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">${ICON_GITHUB}</a>
                 <a href="${LINKEDIN_URL}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">${ICON_LINKEDIN}</a>
             </div>
@@ -139,7 +153,7 @@ for (const item of items) {
     if (item.type !== 'project' && item.type !== 'writing') {
         problems.push(`unknown type ${JSON.stringify(item.type)} on ${JSON.stringify(item.title)}`);
     }
-    if (item.article && !existsSync(join(ROOT, item.article))) {
+    if (item.article && !existsSync(join(ROOT, articlePath(item.article) + '.html'))) {
         problems.push(`article not found: ${item.article} (${item.title})`);
     }
 }
