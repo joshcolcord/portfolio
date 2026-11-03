@@ -14,19 +14,13 @@
       "title": "Example Project",
       "description": "A short description of what the project does and what it's built with.",
       "github": "https://github.com/joshcolcord",
-      "article": "writing/example.html"
+      "article": "jcolcord.me/writing/clob"
     },
     {
       "type": "writing",
-      "title": "Example Writeup",
-      "date": "2025-01-14",
-      "article": "writing/example.html"
-    },
-    {
-      "type": "writing",
-      "title": "Untitled Draft",
-      "date": "2024-11-02",
-      "article": ""
+      "title": "Where Do We Go From Here?",
+      "date": "2026-11-03",
+      "article": "jcolcord.me/writing/aisentiment"
     }
   ]
 }
